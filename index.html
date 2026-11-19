@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歌德服 · 网易我的世界生存服务器</title>
+<style>
+  :root{
+	--gold:#f5c518;
+	--black:#0d0d0d;
+	--gray:#181818;
+	--gray-2:#222;
+	--text:#e8e8e8;
+	--muted:#9a9a9a;
+	--line:#333;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+	font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+	background:var(--black);color:var(--text);line-height:1.75;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* ===== 导航 ===== */
+  header{
+	position:sticky;top:0;z-index:100;
+	background:rgba(13,13,13,.94);backdrop-filter:blur(8px);
+	border-bottom:2px solid var(--gold);
+  }
+  .nav{
+	max-width:1160px;margin:0 auto;padding:14px 20px;
+	display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  }
+  .logo{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700;}
+  .mark{
+	width:36px;height:36px;border-radius:50%;background:#000;
+	border:2px solid var(--gold);position:relative;flex-shrink:0;
+  }
+  .mark::before,.mark::after{content:"";position:absolute;background:var(--gold);}
+  .mark::before{left:50%;top:0;bottom:0;width:8px;transform:translateX(-50%);}
+  .mark::after{top:50%;left:0;right:0;height:8px;transform:translateY(-50%);}
+  .logo em{font-style:normal;color:var(--gold);font-size:13px;letter-spacing:2px;}
+  nav ul{display:flex;list-style:none;gap:4px;flex-wrap:wrap;}
+  nav a{padding:8px 15px;border-radius:6px;font-size:15px;color:var(--muted);transition:.25s;}
+  nav a:hover,nav a.active{background:var(--gold);color:#000;font-weight:700;}
+
+  /* ===== Hero ===== */
+  .hero{
+	position:relative;padding:90px 20px 80px;text-align:center;overflow:hidden;
+	background:
+	  radial-gradient(circle at 20% 20%, rgba(245,197,24,.10), transparent 45%),
+	  radial-gradient(circle at 80% 75%, rgba(245,197,24,.08), transparent 45%),
+	  #111;
+	border-bottom:1px solid var(--line);
+  }
+  .hero .big-mark{
+	width:96px;height:96px;border-radius:50%;background:#000;
+	border:4px solid var(--gold);position:relative;margin:0 auto 26px;
+	box-shadow:0 0 40px rgba(245,197,24,.35);
+  }
+  .hero .big-mark::before,.hero .big-mark::after{content:"";position:absolute;background:var(--gold);}
+  .hero .big-mark::before{left:50%;top:0;bottom:0;width:22px;transform:translateX(-50%);}
+  .hero .big-mark::after{top:50%;left:0;right:0;height:22px;transform:translateY(-50%);}
+  .hero h1{
+	font-size:clamp(40px,8vw,72px);letter-spacing:10px;color:var(--gold);
+	text-shadow:0 4px 24px rgba(0,0,0,.8);
+  }
+  .hero .sub{margin-top:14px;font-size:clamp(15px,2.2vw,19px);color:#ddd;}
+  .server-id{
+	margin-top:30px;display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;
+	justify-content:center;background:rgba(0,0,0,.55);border:2px solid var(--gold);
+	padding:14px 26px;border-radius:10px;
+  }
+  .server-id b{font-size:30px;color:var(--gold);letter-spacing:3px;}
+  .copy-btn{
+	background:var(--gold);color:#000;border:none;cursor:pointer;
+	padding:8px 18px;border-radius:6px;font-size:14px;font-weight:700;
+  }
+  .copy-btn:hover{background:#fff;}
+  .tags{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .tags i{
+	font-style:normal;font-size:13px;padding:5px 15px;border-radius:20px;
+	background:rgba(245,197,24,.13);border:1px solid rgba(245,197,24,.45);color:var(--gold);
+  }
+
+  /* ===== 区块 ===== */
+  section{max-width:1160px;margin:0 auto;padding:64px 20px;}
+  .sec-title{text-align:center;margin-bottom:36px;}
+  .sec-title h2{
+	font-size:30px;color:var(--gold);letter-spacing:4px;display:inline-block;
+	padding-bottom:12px;position:relative;
+  }
+  .sec-title h2::after{
+	content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+	width:56px;height:4px;background:var(--gold);border-radius:2px;
+  }
+  .sec-title p{color:var(--muted);margin-top:14px;font-size:15px;}
+
+  .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  .card{
+	background:var(--gray);border:1px solid var(--line);border-radius:12px;
+	padding:26px;transition:.3s;position:relative;overflow:hidden;
+  }
+  .card::before{
+	content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);
+  }
+  .card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 12px 28px rgba(245,197,24,.12);}
+  .card .ico{
+	width:46px;height:46px;border-radius:10px;background:rgba(245,197,24,.14);
+	display:flex;align-items:center;justify-content:center;
+	font-size:22px;color:var(--gold);margin-bottom:14px;border:1px solid rgba(245,197,24,.35);
+  }
+  .card h3{color:var(--gold);font-size:19px;margin-bottom:8px;}
+  .card p{color:var(--muted);font-size:14.5px;}
+
+  /* ===== 规则 ===== */
+  .rules-wrap{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .rules{background:var(--gray);border:1px solid var(--line);border-radius:12px;padding:28px;}
+  .rules h3{font-size:19px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px dashed var(--line);}
+  .rules.bad h3{color:#e05555;}
+  .rules.good h3{color:#4ecb6a;}
+  .rules ul{list-style:none;display:grid;gap:11px;}
+  .rules li{
+	padding:11px 14px;background:var(--gray-2);border-radius:6px;font-size:14.5px;
+	border-left:3px solid #e05555;
+  }
+  .rules.good li{border-left-color:#4ecb6a;}
+  .rules li b{color:var(--text);}
+
+  /* ===== 加群 ===== */
+  .join{
+	background:var(--gray);border:2px solid var(--gold);border-radius:14px;
+	padding:34px;
+  }
+  .join h3{font-size:23px;color:var(--gold);margin-bottom:16px;text-align:center;}
+  .join .info{text-align:center;color:var(--muted);font-size:15px;margin-bottom:26px;}
+  .join .info b{color:var(--text);}
+  .join-cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .jcard{
+	background:var(--gray-2);border:1px solid var(--line);border-radius:10px;
+	padding:22px;text-align:center;transition:.25s;
+  }
+  .jcard:hover{border-color:var(--gold);transform:translateY(-4px);}
+  .jcard .lab{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;}
+  .jcard .val{font-size:26px;color:var(--gold);font-weight:700;letter-spacing:2px;}
+  .jcard .name{font-size:14px;color:var(--text);margin-top:8px;}
+  .jbtn{
+	display:block;margin:26px auto 0;max-width:320px;text-align:center;
+	background:var(--gold);color:#000;padding:13px 0;border-radius:8px;
+	font-weight:700;font-size:16px;letter-spacing:1px;transition:.25s;
+  }
+  .jbtn:hover{background:#fff;}
+  .jbtn.ghost{
+	background:transparent;color:var(--gold);border:2px solid var(--gold);
+	margin-top:12px;
+  }
+  .jbtn.ghost:hover{background:rgba(245,197,24,.12);}
+  .join .tip{text-align:center;color:var(--muted);font-size:13px;margin-top:20px;}
+
+  /* ===== 页脚 ===== */
+  footer{
+	border-top:2px solid var(--gold);margin-top:50px;
+	padding:28px 20px;text-align:center;color:var(--muted);font-size:14px;
+  }
+  footer b{color:var(--gold);}
+
+  @media(max-width:760px){
+	.nav{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+	<a href="#top" class="logo">
+	  <span class="mark"></span>歌德服 <em>MINECRAFT</em>
+	</a>
+	<nav>
+	  <ul>
+		<li><a href="#main">主城</a></li>
+		<li><a href="#shop">商店</a></li>
+		<li><a href="#mine">矿区</a></li>
+		<li><a href="#game">小游戏</a></li>
+		<li><a href="#rules">规则</a></li>
+		<li><a href="#join">加群</a></li>
+	  </ul>
+	</nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="big-mark"></div>
+  <h1>歌 德 服</h1>
+  <p class="sub">网易我的世界 · 生存服务器 · 以和谐为本，与好友共建家园</p>
+  <div class="server-id">
+	<span>服务器号</span>
+	<b id="sid">31172669</b>
+	<button class="copy-btn" onclick="copyId('sid',this)">复制</button>
+  </div>
+  <div class="tags">
+	<i>生存玩法</i><i>和谐氛围</i><i>中式主城</i><i>固定物价</i><i>禁止作弊</i>
+  </div>
+</div>
+
+<!-- 主城 -->
+<section id="main">
+  <div class="sec-title">
+	<h2>主 城</h2>
+	<p>青瓦白墙，小桥流水，歌德服的中心广场与传送枢纽都在这里</p>
+  </div>
+  <div class="grid">
+	<div class="card">
+	  <div class="ico">⌂</div>
+	  <h3>主城风貌</h3>
+	  <p>主城依水而建，亭台楼阁错落有致，中式建筑风格贯穿全图，是玩家聚集与休憩的核心区域。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">⇄</div>
+	  <h3>传送枢纽</h3>
+	  <p>出生点、传送门与公告牌集中于此，新玩家落地即可快速上手，无需迷路。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">⚑</div>
+	  <h3>自由建家</h3>
+	  <p>主城周边为公共区域，不设摊位交易，土地也无需租赁，找到心仪的地方即可安家落户。</p>
+	</div>
+  </div>
+</section>
+
+<!-- 商店 -->
+<section id="shop">
+  <div class="sec-title">
+	<h2>商 店</h2>
+	<p>古风集市街，商品与价格全部固定，明码标价，童叟无欺</p>
+  </div>
+  <div class="grid">
+	<div class="card">
+	  <div class="ico">¥</div>
+	  <h3>固定商品</h3>
+	  <p>商店内的物品种类与数量由服务器统一设定，玩家不能自行上架或摆摊，交易环境干净有序。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">＝</div>
+	  <h3>价格恒定</h3>
+	  <p>所有商品均为固定价格，不会随市场波动上涨或下跌，什么时候买都是同一个价。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">✓</div>
+	  <h3>公平透明</h3>
+	  <p>没有奸商、没有恶意抬价、没有垄断，所有玩家面对的是同一套价格表，安心买卖。</p>
+	</div>
+  </div>
+</section>
+
+<!-- 矿区 -->
+<section id="mine">
+  <div class="sec-title">
+	<h2>矿 区</h2>
+	<p>专属挖矿区域，资源丰富，安全高效，远离地表干扰</p>
+  </div>
+  <div class="grid">
+	<div class="card">
+	  <div class="ico">◆</div>
+	  <h3>地下矿场</h3>
+	  <p>矿区经过统一规划，通道清晰、照明充足，钻石、红石、煤炭等各类矿脉分布合理。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">⚒</div>
+	  <h3>挖矿须知</h3>
+	  <p>禁止使用任何外挂与辅助工具，禁止破坏他人矿道，文明挖矿，资源共享。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">☯</div>
+	  <h3>安全采集</h3>
+	  <p>矿区内怪物生成受控，可安心长时间作业，是新手练手与老玩家刷资源的首选之地。</p>
+	</div>
+  </div>
+</section>
+
+<!-- 小游戏 -->
+<section id="game">
+  <div class="sec-title">
+	<h2>小 游 戏</h2>
+	<p>挖矿之余放松一下，多种趣味玩法等你挑战</p>
+  </div>
+  <div class="grid">
+	<div class="card">
+	  <div class="ico">▶</div>
+	  <h3>娱乐区域</h3>
+	  <p>服务器内设有独立小游戏区域，跑酷、竞技、解谜等玩法持续更新，适合组队或独自消遣。</p>
+	</div>
+	<div class="card">
+	  <div class="ico">☺</div>
+	  <h3>轻松社交</h3>
+	  <p>不想肝生存的时候就来玩两把，在轻松的氛围里认识更多志同道合的朋友。</p>
+	</div>
+  </div>
+</section>
+
+<!-- 规则 -->
+<section id="rules">
+  <div class="sec-title">
+	<h2>服务器规则</h2>
+	<p>和谐第一，规则第二，请所有玩家共同遵守</p>
+  </div>
+  <div class="rules-wrap">
+	<div class="rules bad">
+	  <h3>禁止行为（违者封禁）</h3>
+	  <ul>
+		<li><b>禁止开挂</b> —— 严禁使用任何外挂、辅助、修改客户端等破坏平衡的行为。</li>
+		<li><b>禁止拆家</b> —— 严禁破坏、偷窃他人建筑与储物箱。</li>
+		<li><b>禁止刷物</b> —— 严禁利用漏洞、复制、滥用刷怪机制等方式非法获取物品。</li>
+	  </ul>
+	</div>
+	<div class="rules good">
+	  <h3>提倡行为</h3>
+	  <ul>
+		<li><b>和谐相处</b> —— 友好交流，不辱骂、不骚扰、不引战。</li>
+		<li><b>诚信待人</b> —— 公平相处，不欺诈、不占便宜。</li>
+		<li><b>共建家园</b> —— 遇到问题及时反馈管理员，一起把歌德服变得更好。</li>
+	  </ul>
+	</div>
+  </div>
+</section>
+
+<!-- 加群 -->
+<section id="join">
+  <div class="sec-title">
+	<h2>加 入 我 们</h2>
+	<p>搜索群号加入 QQ 群，获取开服动态、活动通知与管理员帮助</p>
+  </div>
+  <div class="join">
+	<h3>歌德服众议院</h3>
+	<p class="info">群内可咨询玩法、举报违规、参与活动、认识新朋友。<br>
+	  无论你是刚入坑的新人，还是资深生存玩家，歌德服都欢迎你。</p>
+
+	<div class="join-cards">
+	  <div class="jcard">
+		<div class="lab">QQ 群号</div>
+		<div class="val" id="qqid">254105391</div>
+		<div class="name">歌德服众议院</div>
+	  </div>
+	  <div class="jcard">
+		<div class="lab">服务器号</div>
+		<div class="val" id="sid2">31172669</div>
+		<div class="name">网易我的世界</div>
+	  </div>
+	</div>
+
+	<a class="jbtn" href="https://qm.qq.com/q/254105391" target="_blank">点击加入 QQ 群</a>
+	<button class="jbtn ghost" style="width:100%;max-width:320px;cursor:pointer;border:2px solid var(--gold);"
+			onclick="copyId('qqid',this)">复制群号 254105391</button>
+
+	<p class="tip">也可在 QQ 中直接搜索群号「254105391」加入</p>
+  </div>
+</section>
+
+<footer>
+  <p><b>歌德服</b> · 网易我的世界生存服务器 · 服务器号 31172669</p>
+  <p>QQ 群：歌德服众议院（254105391）｜ 和谐生存，禁止开挂拆家刷物</p>
+  <p style="margin-top:10px;font-size:13px;">© 歌德服 版权所有</p>
+</footer>
+
+<script>
+function copyId(id, btn){
+  const txt = document.getElementById(id).innerText;
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  const old = btn.innerText;
+  btn.innerText = '已复制!';
+  setTimeout(()=>btn.innerText = old, 1500);
+}
+const links = document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{
+  let cur = '';
+  document.querySelectorAll('section').forEach(s=>{
+	if(scrollY >= s.offsetTop - 120) cur = s.id;
+  });
+  links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+});
+</script>
+</body>
+</html>
